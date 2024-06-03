@@ -46,28 +46,45 @@ function humanOutcome(userChoice, computerChoice) {
     ) {
         return "You win!";
     } else {
-       return "You Lose";
+       return "You lose!";
     }
 }         
 
-console.log(humanOutcome(userChoice, computerChoiceWord));
+// Prints out an outcome message, based on Human outcome (win, lose or tie with computer choice)
+console.log(humanOutcome(userChoice, computerChoice));
 
-// Test cases
-//console.log(humanOutcome("ROCK", "SCISSORS")); // Output: You win!
-//console.log(humanOutcome("ROCK", "PAPER"));    // Output: You lose
-//console.log(humanOutcome("ROCK", "ROCK"));     // Output: It's a tie
-
-/* 
 // Declare payers scores
-const humanScore = 0;
-const computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
-// Logic for playing a single round
-
-function playRound(humanChoice, computerChoiceWord) {
-
+// Functions to increments score
+function incrementHumanScore() {
+    humanScore++;
+}
+function incrementComputerScore () {
+    computerScore++;
 }
 
-// Determine if user is winner or loser
+// Function to play round and update score based on game outcome
+function playRound (userChoice, computerChoice) {
+    let outcome = humanOutcome(userChoice, computerChoice);
+    console.log("Outcome: ", outcome); //debugging line
 
-*/
+    if(outcome === "You win!") {
+        incrementHumanScore();
+    } else if (outcome === "You lose!") {
+        incrementComputerScore();
+    } else {
+        console.log("It's a tie");
+    }
+
+    console.log("Player Score: " + humanScore);
+    console.log("Computer Score: " + computerScore);
+}
+
+let playerChoice = userChoice;
+let computersChoice = computerChoice;
+
+playRound(playerChoice, computersChoice);
+
+// Determine if user is winner or loser
