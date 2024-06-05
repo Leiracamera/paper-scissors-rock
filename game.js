@@ -1,16 +1,15 @@
-// Computer generates random return of "rock" "paper" or "scissors"
 
-// Declare payers scores
+// Declare variables for players scores
 let humanScore = 0;
 let computerScore = 0;
 
-// Generate computers choice
-// Function to generate a random num between 1-3
+// Generate computers choice:
+// Function to generate a random num between 1-3 (math.random * 3 returns floating-point num between 0-3, math.floor rounds the num/removing decimal part)
 function getComputerChoice() { 
-    let randomNumber = Math.floor(Math.random() * 3) + 1; 
+    const randomNumber = Math.floor(Math.random() * 3) + 1; 
     return randomNumber;
 }
-// Function to convert numbers 1-3 to words
+// Function to convert numbers 1-3 to words by declaring constant variable (numberWords) and mapping to a key of 1, 2, 3
 function numberToWord(randomNumber) {
     const numberWords = {
         1: "PAPER", 
@@ -21,15 +20,14 @@ function numberToWord(randomNumber) {
     return numberWords[randomNumber];
 }
 
-// Function that takes the user choice (paper, scissors or rock) and returns it
+// Function that takes the user choice (paper, scissors or rock) and returns it (prompt is used to display a dialog box for input text)
 function getHumanChoice() {
-    let humanChoice = prompt("Enter your choice: Paper, Scissors or Rock").toUpperCase();
+    const humanChoice = prompt("Enter your choice: Paper, Scissors or Rock").toUpperCase();
     console.log("User's Choice: ", humanChoice);
     return humanChoice;
 }
 
-
-// Determine Human's game outcome
+// Determine game outcome by comparing human choice with computer choice
 function getOutcome(userChoice, computerChoice) {
     if (userChoice === computerChoice) {
         return "It's a tie";
@@ -44,7 +42,7 @@ function getOutcome(userChoice, computerChoice) {
     }
 }
 
-// Functions to increments score
+// Functions to increment scores (declared as 0 at top of script)
 function incrementHumanScore() {
     humanScore++;
 }
@@ -54,16 +52,17 @@ function incrementComputerScore () {
 
 // Function to play a round and increment scores based on the game outcome
 function playRound(){
-    let computerChoiceNumber = getComputerChoice();
-    // Convert number to word
-    let computerChoiceWord = numberToWord(computerChoiceNumber);
+    // Use getComputerChoice to get a random number between 1-3
+    const computerChoiceNumber = getComputerChoice();
+    // Convert this number to a word
+    const computerChoiceWord = numberToWord(computerChoiceNumber);
     // Print the computers choice (word)
-    let computerChoice = computerChoiceWord; 
+    const computerChoice = computerChoiceWord; 
     
     console.log("Computer's Choice: ", computerChoice);
-
-    let userChoice = getHumanChoice();
-    let outcome = getOutcome(userChoice, computerChoice);
+    
+    const userChoice = getHumanChoice();
+    const outcome = getOutcome(userChoice, computerChoice);
 
     // Prints out an outcome message, based on Human outcome (win, lose or tie with computer choice)
     console.log(outcome);
@@ -96,77 +95,3 @@ function playGame() {
 }
 
 playGame();
-
-
-
-
-
-
-
-// Variable for user choice to compare with computer choice
-
-
-
-
-
-
-// Function to play round and increment score based on game outcome
-//function getTally (outcome) {
-
-
- /*   if(outcome === "You win!") {
-        incrementHumanScore();
-         
-    }  
-    
-    if (outcome === "You lose!") {
-        incrementComputerScore();
-    }  
-    console.log("Player Score: " + humanScore);
-    console.log("Computer Score: " + computerScore);
-    
-}
-
-
-
-
-// Logic for playing full game (consisting of 5 rounds)
-/* function playGame() {
-    let rounds = 0;
-    while (rounds < 5 && humanScore < 3 && computerScore < 3) {
-        let computerChoiceNumber = getComputerChoice();
-        let computerChoiceWord = numberToWord(computerChoiceNumber);
-        console.log("Computer's Choice: ", computerChoiceWord);
-
-        let userChoice = getHumanChoice();
-
-        playRound(userChoice, computerChoiceWord);
-
-        rounds++;
-    }
-
-    if(humanScore === 3) {
-        console.log("You win the game!");
-    } else if (computerScore === 3) {
-        console.log("You lose the game!");
-    } else {
-        console.log("Game over. It's a tie.")
-    }
-}
-// Make function called playGame
-// Inside playGame: prompt user for paper, scissors or rock (humanChoice)
-// get random choice from computer (computerChoice)
-// compare userChoice with computerChoice to determine winner
-// print out winner and increment score
-// repeat the prompt from human
-// play until someone reaches 3 wins (in a max of 5 rounds)
-// game ends and prints the name of winner (you win or you lose in regards to human)
-
-/* playRound takes userChoice and computerChoice and determines winner 
-as "outcome" using the humanOutcome function
-
-to play a round 5 times, I need to call the playRound function
-5 times but also call getHumanChoice and getComputerChoice (computerChoiceWord)
-to repromt a new game. 
-
-*/
