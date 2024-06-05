@@ -1,8 +1,13 @@
 // Computer generates random return of "rock" "paper" or "scissors"
 
+// Declare payers scores
+let humanScore = 0;
+let computerScore = 0;
+
+// Generate computers choice
 // Function to generate a random num between 1-3
 function getComputerChoice() { 
-let randomNumber = Math.floor(Math.random() * 3) + 1; 
+    let randomNumber = Math.floor(Math.random() * 3) + 1; 
     return randomNumber;
 }
 // Function to convert numbers 1-3 to words
@@ -16,25 +21,16 @@ function numberToWord(randomNumber) {
     return numberWords[randomNumber];
 }
 
-// Generate computers choice
-let computerChoiceNumber = getComputerChoice();
-// Convert number to word
-let computerChoiceWord = numberToWord(computerChoiceNumber);
-// Print the computers choice (word)
-let computerChoice = computerChoiceWord; 
-console.log("Computer's Choice: ", computerChoiceWord);
-
 // Function that takes the user choice (paper, scissors or rock) and returns it
 function getHumanChoice() {
     let humanChoice = prompt("Enter your choice: Paper, Scissors or Rock").toUpperCase();
     console.log("User's Choice: ", humanChoice);
     return humanChoice;
 }
-// Variable for user choice to compare with computer choice
-let userChoice = getHumanChoice();
+
 
 // Determine Human's game outcome
-function humanOutcome(userChoice, computerChoice) {
+function getOutcome(userChoice, computerChoice) {
     if (userChoice === computerChoice) {
         return "It's a tie";
     } else if (
@@ -48,15 +44,6 @@ function humanOutcome(userChoice, computerChoice) {
     }
 }
 
-let outcome = humanOutcome(userChoice, computerChoice);
-
-// Prints out an outcome message, based on Human outcome (win, lose or tie with computer choice)
-console.log(outcome);
-
-// Declare payers scores
-let humanScore = 0;
-let computerScore = 0;
-
 // Functions to increments score
 function incrementHumanScore() {
     humanScore++;
@@ -65,25 +52,82 @@ function incrementComputerScore () {
     computerScore++;
 }
 
-// Function to play round and increment score based on game outcome
-function playRound (userChoice, computerChoice) {
-    let outcome = humanOutcome(userChoice, computerChoice);
-    console.log("Outcome: ", outcome); //debugging line
+// Function to play a round and increment scores based on the game outcome
+function playRound(){
+    let computerChoiceNumber = getComputerChoice();
+    // Convert number to word
+    let computerChoiceWord = numberToWord(computerChoiceNumber);
+    // Print the computers choice (word)
+    let computerChoice = computerChoiceWord; 
+    
+    console.log("Computer's Choice: ", computerChoice);
 
-    if(outcome === "You win!") {
+    let userChoice = getHumanChoice();
+    let outcome = getOutcome(userChoice, computerChoice);
+
+    // Prints out an outcome message, based on Human outcome (win, lose or tie with computer choice)
+    console.log(outcome);
+
+    if (outcome === "You win!") {
         incrementHumanScore();
     } else if (outcome === "You lose!") {
         incrementComputerScore();
-    } else {
-        console.log("It's a tie");
     }
 
     console.log("Player Score: " + humanScore);
     console.log("Computer Score: " + computerScore);
+} 
+
+// Function to play the full game (consisting of up to 5 rounds)
+function playGame() {
+    let rounds = 0;
+    while (rounds < 5 && humanScore < 3 && computerScore < 3) {
+        playRound(rounds);
+        rounds++;
+    }
+
+    if (humanScore > computerScore) {
+        console.log("You win the game!");
+    } else if (humanScore < computerScore) {
+        console.log("You lose the game!");
+    } else {
+        console.log("Game Over. It's a tie.");
+    }
 }
 
-let playerChoice = userChoice;
-let computersChoice = computerChoice;
+playGame();
+
+
+
+
+
+
+
+// Variable for user choice to compare with computer choice
+
+
+
+
+
+
+// Function to play round and increment score based on game outcome
+//function getTally (outcome) {
+
+
+ /*   if(outcome === "You win!") {
+        incrementHumanScore();
+         
+    }  
+    
+    if (outcome === "You lose!") {
+        incrementComputerScore();
+    }  
+    console.log("Player Score: " + humanScore);
+    console.log("Computer Score: " + computerScore);
+    
+}
+
+
 
 
 // Logic for playing full game (consisting of 5 rounds)
