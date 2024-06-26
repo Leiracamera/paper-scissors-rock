@@ -20,13 +20,6 @@ function numberToWord(randomNumber) {
     return numberWords[randomNumber];
 }
 
-// Function that takes the user choice (paper, scissors or rock) and returns it (prompt is used to display a dialog box for input text)
-function getHumanChoice() {
-    const humanChoice = prompt("Enter your choice: Paper, Scissors or Rock").toUpperCase();
-    console.log("User's Choice: ", humanChoice);
-    return humanChoice;
-}
-
 // Determine game outcome by comparing human choice with computer choice
 function getOutcome(userChoice, computerChoice) {
     if (userChoice === computerChoice) {
@@ -45,27 +38,30 @@ function getOutcome(userChoice, computerChoice) {
 // Functions to increment scores (declared as 0 at top of script)
 function incrementHumanScore() {
     humanScore++;
+    document.getElementById("userScoreText").textContent = humanScore;
 }
 function incrementComputerScore () {
     computerScore++;
+    document.getElementById("computerScoreText").textContent = computerScore;
 }
 
 // Function to play a round and increment scores based on the game outcome
-function playRound(){
+function playRound(userChoice){
     // Use getComputerChoice to get a random number between 1-3
     const computerChoiceNumber = getComputerChoice();
-    // Convert this number to a word
-    const computerChoiceWord = numberToWord(computerChoiceNumber);
-    // Print the computers choice (word)
-    const computerChoice = computerChoiceWord; 
+
+    const computerChoice = numberToWord(computerChoiceNumber);
+
+    document.getElementById("computerChoiceText").textContent = computerChoice;
+
+    document.getElementById("userChoiceText").textContent = userChoice;
     
-    console.log("Computer's Choice: ", computerChoice);
-    
-    const userChoice = getHumanChoice();
+    // const userChoice = getHumanChoice();
     const outcome = getOutcome(userChoice, computerChoice);
 
+    document.getElementById("gameOutcomeText").textContent = outcome;
+
     // Prints out an outcome message, based on Human outcome (win, lose or tie with computer choice)
-    console.log(outcome);
 
     if (outcome === "You win!") {
         incrementHumanScore();
@@ -73,25 +69,64 @@ function playRound(){
         incrementComputerScore();
     }
 
-    console.log("Player Score: " + humanScore);
-    console.log("Computer Score: " + computerScore);
+    if (humanScore === 5 || computerScore === 5) {
+        announceWinner();
+    }
+
 } 
 
+function announceWinner() {
+    if (humanScore > computerScore) {
+        document.getElementById("gameOutcomeText").textContent = "You Win the game!";
+    } else if (humanScore < computerScore) {
+        document.getElementById("gameOutcomeText").textContent = "You lose the game!";
+    }
+    // Disable the choice buttons after game finished
+    document.getElementById("rock").disabled = true;
+    document.getElementById("paper").disabled = true;
+    document.getElementById("scissors").disabled = true;
+
+    // Show the "PLAY AGAIN" button
+    document.getElementById("playAgain").style.display = "block";
+}
+
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+
+    document.getElementById("userScoreText").textContent = humanScore;
+    document.getElementById("computerScoreText").textContent = computerScore;
+    document.getElementById("gameOutcomeText").textContent = "";
+    document.getElementById("computerChoiceText").textContent = "";
+    document.getElementById("userChoiceText").textContent = "";
+
+    // Enable the choice buttons
+    document.getElementById("rock").disabled = false;
+    document.getElementById("paper").disabled = false;
+    document.getElementById("scissors").disabled = false;
+
+    // Hide the "Play Again" button
+    document.getElementById("playAgain").style.display = "none";
+}
+
+// Event Listeners for buttons
+document.getElementById("rock").addEventListener("click", function() {
+    playRound("ROCK");
+});
+
+document.getElementById("paper").addEventListener("click", function() {
+    playRound("PAPER");
+});
+
+document.getElementById("scissors").addEventListener("click", function() {
+    playRound("SCISSORS");
+});
+
+document.getElementById("playAgain").addEventListener("click", resetGame);
 // Function to play the full game (consisting of up to 5 rounds)
 function playGame() {
-    let rounds = 0;
-    while (rounds < 5 && humanScore < 3 && computerScore < 3) {
-        playRound(rounds);
-        rounds++;
-    }
-
-    if (humanScore > computerScore) {
-        console.log("You win the game!");
-    } else if (humanScore < computerScore) {
-        console.log("You lose the game!");
-    } else {
-        console.log("Game Over. It's a tie.");
-    }
+    document.getElementById("userScoreTest").textContent = humanScore;
+    document.getElementById("computerScoreText").textContent = computerScore;
 }
 
 playGame();

@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paper Scissors Rock Game</title>
-    <script src="game.js"></script>
 </head>
 <body>
-    
+    <button id="rock" class="choiceButton">Rock</button>
+    <button id="paper" class="choiceButton">Paper</button>
+    <button id="scissors" class="choiceButton">Scissors</button>
+
+    <div>
+        <h1>Let's Play: First to 5 wins the game!</h1>
+        <ul style="list-style-type: none;">
+            <li id="computerChoice" class="gameResult">Computer's Choice: <span id="computerChoiceText"></span></li>
+            <li id="userChoice" class="gameResult">User's Choice: <span id="userChoiceText"></span></li>
+            <li id="computerScore" class="gameResult">Computer Score: <span id="computerScoreText">0</span></li>
+            <li id="userScore" class="gameResult">User Score: <span id="userScoreText">0</span> </li>
+            <li id="gameOutcome" class="gameResult">Outcome: <span id="gameOutcomeText"></span></li>
+        </ul>
+    </div>
+
+    <button id="playAgain" class="playAgainButton" style="display: none;">PLAY AGAIN</button>
+
+    <script src="game.js"></script>
 </body>
 </html>
